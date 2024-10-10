@@ -4,6 +4,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { StoreModule } from './store/store.module';
 import { EmployeeModule } from './employee/employee.module';
+import { ScheduleModule } from './schedule/schedule.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { EmployeeModule } from './employee/employee.module';
     AuthModule,
     StoreModule,
     EmployeeModule,
+    ScheduleModule,
   ],
   controllers: [AppController],
 })
