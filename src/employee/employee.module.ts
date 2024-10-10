@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { StoreController } from './store.controller';
-import { StoreService } from './store.service';
+import { EmployeeService } from './employee.service';
+import { EmployeeController } from './employee.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 
@@ -8,16 +8,16 @@ import { ConfigService } from '@nestjs/config';
   imports: [
     ClientsModule.registerAsync([
       {
-        name: 'STORE_SERVICE',
+        name: 'EMPLOYEE_SERVICE',
         useFactory: (configService: ConfigService) => ({
           transport: Transport.KAFKA,
           options: {
             client: {
-              clientId: 'store',
+              clientId: 'employee',
               brokers: ['localhost:9092'],
             },
             consumer: {
-              groupId: configService.get('KAFKA_STORE_GROUP_ID'),
+              groupId: configService.get('KAFKA_EMPLOYEE_GROUP_ID'),
             },
           },
         }),
@@ -25,7 +25,7 @@ import { ConfigService } from '@nestjs/config';
       },
     ]),
   ],
-  controllers: [StoreController],
-  providers: [StoreService],
+  providers: [EmployeeService],
+  controllers: [EmployeeController],
 })
-export class StoreModule {}
+export class EmployeeModule {}
