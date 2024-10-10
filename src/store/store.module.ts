@@ -2,21 +2,26 @@ import { Module } from '@nestjs/common';
 import { StoreController } from './store.controller';
 import { StoreService } from './store.service';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    ClientsModule.register([
+    ClientsModule.registerAsync([
       {
         name: 'STORE_SERVICE',
-        transport: Transport.KAFKA,
-        options: {
-          client: {
-            brokers: ['localhost:9092'],
+        useFactory: (configService: ConfigService) => ({
+          transport: Transport.KAFKA,
+          options: {
+            client: {
+              clientId: 'store',
+              brokers: ['localhost:9092'],
+            },
+            consumer: {
+              groupId: configService.get('KAFKA_GROUP_ID'),
+            },
           },
-          consumer: {
-            groupId: 'store-consumer',
-          },
-        },
+        }),
+        inject: [ConfigService],
       },
     ]),
   ],
