@@ -6,18 +6,20 @@ import {
   Delete,
   Body,
   Param,
+  Query,
 } from '@nestjs/common';
 import { EmployeeService } from './employee.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
+import { ListEmployeeQuery } from './dto/list-employee.query';
 
 @Controller('employee')
 export class EmployeeController {
   constructor(private readonly service: EmployeeService) {}
 
   @Get()
-  async list() {
-    return this.service.list();
+  async list(@Query() query?: ListEmployeeQuery) {
+    return this.service.list(query);
   }
 
   @Post()

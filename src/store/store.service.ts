@@ -2,42 +2,43 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ClientKafka } from '@nestjs/microservices';
 import { CreateStoreDto } from './dto/create-store.dto';
 import { UpdateStoreDto } from './dto/update-store.dto';
+import { StoreTopics } from 'store-mag-types';
 
 @Injectable()
 export class StoreService {
   constructor(@Inject('STORE_SERVICE') private readonly client: ClientKafka) {}
 
   async onModuleInit() {
-    this.client.subscribeToResponseOf('store.list');
-    this.client.subscribeToResponseOf('store.create');
-    this.client.subscribeToResponseOf('store.findById');
-    this.client.subscribeToResponseOf('store.update');
-    this.client.subscribeToResponseOf('store.delete');
+    this.client.subscribeToResponseOf(StoreTopics.LIST_STORE);
+    this.client.subscribeToResponseOf(StoreTopics.CREATE_STORE);
+    this.client.subscribeToResponseOf(StoreTopics.FIND_STORE);
+    this.client.subscribeToResponseOf(StoreTopics.UPDATE_STORE);
+    this.client.subscribeToResponseOf(StoreTopics.DELETE_STORE);
     await this.client.connect();
   }
 
   async list() {
-    return this.client.send('store.list', {});
+    return this.client.send(StoreTopics.LIST_STORE, {});
   }
 
   async create(data: CreateStoreDto) {
-    return this.client.send('store.create', {
+    return this.client.send(StoreTopics.CREATE_STORE, {
       ...data,
     });
   }
 
   async findById(id: string) {
-    return this.client.send('store.findById', id);
+    return this.client.send(StoreTopics.FIND_STORE, id);
   }
 
   async update(id: string, data: UpdateStoreDto) {
-    return this.client.send('store.update', {
+    return this.client.send(StoreTopics.UPDATE_STORE, {
       id,
       ...data,
     });
   }
 
   async delete(id: string) {
-    return this.client.send('store.delete', id);
+    return this.client.send(StoreTopics.DELETE_STORE, id);
   }
 }
