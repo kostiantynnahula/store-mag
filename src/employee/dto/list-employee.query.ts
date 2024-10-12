@@ -8,15 +8,18 @@ export class ListEmployeeQuery {
 
   @ApiProperty({ type: 'number', required: false })
   @IsOptional()
-  per_page?: number;
+  perPage?: number;
 
   @ApiProperty({ type: 'boolean', required: false })
   @IsOptional()
-  include_total?: boolean;
+  includeTotal?: boolean;
 
   @ApiProperty({ type: 'string', required: false })
   @IsOptional()
   sort?: string;
+
+  @ApiProperty({ type: 'string', required: false })
+  order?: string;
 
   @ApiProperty({ type: 'string', required: false })
   @IsOptional()
