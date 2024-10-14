@@ -3,6 +3,7 @@ import { ClientKafka } from '@nestjs/microservices';
 import { CreateStoreDto } from './dto/create-store.dto';
 import { UpdateStoreDto } from './dto/update-store.dto';
 import { StoreTopics } from 'store-mag-types';
+import { ListStoreQuery } from './dto/list-store.dto';
 
 @Injectable()
 export class StoreService {
@@ -17,8 +18,8 @@ export class StoreService {
     await this.client.connect();
   }
 
-  async list() {
-    return this.client.send(StoreTopics.LIST_STORE, {});
+  async list(query: ListStoreQuery) {
+    return this.client.send(StoreTopics.LIST_STORE, { ...query });
   }
 
   async create(data: CreateStoreDto) {

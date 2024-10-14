@@ -24,7 +24,6 @@ export class ScheduleService {
   }
 
   async getShift(id: string) {
-    console.log('get shift');
     return this.client.send(ScheduleTopics.GET_SHIFT, id);
   }
 
