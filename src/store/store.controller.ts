@@ -28,6 +28,10 @@ export class StoreController {
   async create(@Body() body: CreateStoreDto) {
     return await this.service.create(body);
   }
+  @Get('products')
+  async listProducts() {
+    return await this.service.listProducts();
+  }
 
   @Get(':id')
   async findById(@Param('id') id: string) {
@@ -43,4 +47,5 @@ export class StoreController {
   async delete(@Param('id') id: string) {
     return await this.service.delete(id);
   }
+
 }

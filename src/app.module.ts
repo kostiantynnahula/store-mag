@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { StoreModule } from './store/store.module';
 import { EmployeeModule } from './employee/employee.module';
 import { ScheduleModule } from './schedule/schedule.module';
+import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { ScheduleModule } from './schedule/schedule.module';
     StoreModule,
     EmployeeModule,
     ScheduleModule,
+    ProductModule,
   ],
   controllers: [AppController],
 })
