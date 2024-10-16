@@ -8,16 +8,16 @@ import { ConfigService } from '@nestjs/config';
   imports: [
     ClientsModule.registerAsync([
       {
-        name: 'STORE_SERVICE',
+        name: 'STORE_SERVICE_PRODUCT',
         useFactory: (configService: ConfigService) => ({
           transport: Transport.KAFKA,
           options: {
             client: {
-              clientId: 'store',
+              clientId: 'product',
               brokers: ['localhost:9092'],
             },
             consumer: {
-              groupId: 'store-consumer-product',
+              groupId: configService.get('KAFKA_STORE_PRODUCT_GROUP_ID'),
             },
           },
         }),

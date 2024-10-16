@@ -15,7 +15,6 @@ export class StoreService {
     this.client.subscribeToResponseOf(StoreTopics.FIND_STORE);
     this.client.subscribeToResponseOf(StoreTopics.UPDATE_STORE);
     this.client.subscribeToResponseOf(StoreTopics.DELETE_STORE);
-    this.client.subscribeToResponseOf('product.list');
     await this.client.connect();
   }
 
@@ -42,9 +41,5 @@ export class StoreService {
 
   async delete(id: string) {
     return this.client.send(StoreTopics.DELETE_STORE, id);
-  }
-
-  async listProducts() {
-    return this.client.send('product.list', {});
   }
 }
